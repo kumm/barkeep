@@ -56,7 +56,7 @@
       trim_leading_whitespace = Proc.new { |line| line[leading_whitespace..-1] || "" }
 
       output = lines_before.map do |line_diff|
-        line_diff.line_prefix + CGI.escape_html(trim_leading_whitespace.call(line_diff.data))
+        line_diff.line_prefix + CGI.escape_html(trim_leading_whitespace.call(line_diff.data.force_encoding("utf-8")))
       end
 
       output << ""
@@ -69,7 +69,7 @@
       output << ""
 
       output += lines_after.map do |line_diff|
-        line_diff.line_prefix + CGI.escape_html(trim_leading_whitespace.call(line_diff.data))
+        line_diff.line_prefix + CGI.escape_html(trim_leading_whitespace.call(line_diff.data.force_encoding("utf-8")))
       end
       output.join("\n")
     end.join("\n\n\n")
