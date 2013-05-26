@@ -36,6 +36,10 @@ class DeliverCommitEmails
         logger.warn("Recoverable error when sending email for commit #{commit.sha} in repo #{repo_name}: " +
             error.message)
         sleep 2
+      rescue Exception => error
+	logger.error("Unrecoverable error when sending email for commit #{commit.sha} in repo #{repo_name}: " +
+            "\n#{error.class} #{error.message}\n#{error.backtrace.join("\n")}");
+	raise error
       end
     end
   end

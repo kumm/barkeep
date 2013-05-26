@@ -40,6 +40,10 @@ class DeliverCommentEmails
         logger.warn("Recoverable error when sending email for comment ids " +
             " #{comment_ids.inspect}: #{error.message}")
         sleep 2
+      rescue Exception => error
+	logger.error("Unrecoverable error when sending email for comment ids " +
+            " #{comment_ids.inspect}: \n#{error.class} #{error.message}\n#{error.backtrace.join("\n")}");
+	raise error
       end
     end
   end
