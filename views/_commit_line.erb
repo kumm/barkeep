@@ -20,7 +20,7 @@
     <a href="<%= commit.link %>" target="_blank" class="commitLink"><%= commit.id_abbrev %></a>
   </td>
   <td class="commitMessage">
-    <a href="<%= commit.link %>" target="_blank"><%= CGI::escapeHTML(commit.short_message) %></a>
+    <a href="<%= commit.link %>" target="_blank"><%= CGI::escapeHTML(commit.short_message_original) %></a>
   </td>
   <td class="commitDate"><%= commit.date.to_pretty %></td>
   <td class="commitRepo"><%= commit.repo_name %></td>

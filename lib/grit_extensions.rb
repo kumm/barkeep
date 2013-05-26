@@ -18,6 +18,10 @@ module Grit
       alias_method :message_original, :message
       def message() message_original.then { force_encoding("utf-8") } end
     end
+    unless self.method_defined? :short_message_original
+      alias_method :short_message_original, :short_message
+      def short_message() short_message_original.then { force_encoding("utf-8") } end
+    end
   end
 
   class Repo
