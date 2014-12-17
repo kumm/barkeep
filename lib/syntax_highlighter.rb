@@ -1,9 +1,10 @@
 require "bundler/setup"
 require "pathological"
 
-require "pygments"
 require "lib/logging"
 require "lib/ruby_extensions"
+require "methodchain"
+require "pygments"
 
 class SyntaxHighlighter
   WEEK = 60*60*24*7
@@ -36,8 +37,8 @@ class SyntaxHighlighter
   end
 
   def self.pygmentize(file_type, text)
-    file_type = "text" if Pygments::Lexer.find(file_type).nil?
-    Pygments.highlight(text, :lexer => file_type, :options => {
+    file_type = Pygments::Lexer.find(file_type).then { |lexer| lexer[:aliases][0] rescue nil } || "text"
+    Pygments.highlight(text.to_s.encode('UTF-8', {:invalid => :replace, :undef => :replace, :replace => '?'}), :lexer => file_type, :options => {
       :encoding => "utf-8", :nowrap => true, :stripnl => false, :stripall => false
     })
   end
